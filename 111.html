@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Знакомства — Профиль</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #11141a;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .app-container {
+            width: 100%;
+            max-width: 400px;
+            background: #1a1e26;
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+            overflow: hidden;
+            border: 1px solid #2d3545;
+        }
+        .gallery-container {
+            position: relative;
+            width: 100%;
+            height: 450px;
+            background: #252b36;
+        }
+        .main-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .badge {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: rgba(255, 75, 75, 0.9);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .profile-info {
+            padding: 24px;
+        }
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        .name {
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0;
+        }
+        .age {
+            font-size: 26px;
+            font-weight: 400;
+            color: #b3b9c4;
+        }
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background-color: #2ed573;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .location {
+            color: #8f9cae;
+            font-size: 14px;
+            margin: 0 0 16px 0;
+        }
+        .about-title {
+            font-size: 14px;
+            text-transform: uppercase;
+            color: #ff4b4b;
+            letter-spacing: 1px;
+            margin: 0 0 8px 0;
+        }
+        .bio {
+            color: #d1d7e0;
+            font-size: 15px;
+            line-height: 1.5;
+            margin: 0 0 24px 0;
+        }
+        .preview-thumbs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        .thumb {
+            width: 70px;
+            height: 70px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 2px solid transparent;
+            cursor: pointer;
+            background: #252b36;
+        }
+        .thumb.active {
+            border-color: #ff4b4b;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 16px;
+        }
+        .btn {
+            flex: 1;
+            padding: 14px;
+            border-radius: 12px;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.1s ease;
+        }
+        .btn:active {
+            transform: scale(0.98);
+        }
+        .btn-msg {
+            background: linear-gradient(45deg, #ff4500, #ff007f);
+            color: white;
+        }
+        .btn-skip {
+            background: #2d3545;
+            color: #8f9cae;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Блок главного фото -->
+        <div class="gallery-container">
+            <span class="badge">В поиске</span>
+            <!-- Главное фото, которое меняется при клике на миниатюры -->
+            <img id="mainImage" class="main-photo" src="https://placeholder.com" alt="Фото профиля">
+        </div>
+
+        <div class="profile-info">
+            <div class="profile-header">
+                <h1 class="name">Александр</h1>
+                <span class="age">19</span>
+                <span class="status-dot" title="В сети"></span>
+            </div>
+            
+            <p class="location">📍 В твоем городе (1 км от вас)</p>
+            
+            <h3 class="about-title">О себе</h3>
+            <p class="bio">Люблю стареньких волосатых мальчиков.</p>
+            
+            <!-- Дополнительные фотографии (миниатюры) -->
+            <div class="preview-thumbs">
+                <!-- ФОТО 1: Замените src на имя вашего файла, например "photo1.jpg" -->
+                <img class="thumb active" src="5152295429335616857.jpg" onclick="changePhoto(this.src, this)">
+                
+                <!-- ФОТО 2: Замените src на имя вашего файла, например "photo2.jpg" -->
+                <img class="thumb" src="5152295429335616859.jpg" onclick="changePhoto(this.src, this)">
+                
+                <!-- ФОТО 3: Замените src на имя вашего файла, например "photo3.jpg" -->
+                <img class="thumb" src="5152295429335616858.jpg" onclick="changePhoto(this.src, this)">
+            </div>
+
+            <!-- Кнопки взаимодействия -->
+            <div class="action-buttons">
+                <button class="btn btn-skip">Пропустить</button>
+                <button class="btn btn-msg" onclick="alert('Вы отправили симпатию!')">Лайк</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Небольшой скрипт для интерактивности галереи
+        function changePhoto(src, element) {
+            document.getElementById('mainImage').src = src;
+            
+            // Убираем активную рамку у всех миниатюр и добавляем нажатой
+            const thumbs = document.querySelectorAll('.thumb');
+            thumbs.forEach(t => t.classList.remove('active'));
+            element.classList.add('active');
+        }
+        
+        // Инициализация главного фото первой миниатюрой при загрузке
+        window.onload = function() {
+            const firstThumbSrc = document.querySelectorAll('.thumb')[0].src;
+            document.getElementById('mainImage').src = firstThumbSrc;
+        }
+    </script>
+</body>
+</html>
